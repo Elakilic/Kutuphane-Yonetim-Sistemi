@@ -250,7 +250,7 @@ namespace MyProject
             } while (control);
             
         }
-        public static List<Book> ReturnBook(List<Book> books)
+        public static void ReturnBook(List<Book> books)
         {
             Console.WriteLine("----Ödünç Alınan Kitaplar Listesinden İade Etmek İstediğiniz Kitabı Seçebilirsiniz.----");
             foreach (var book in books)
@@ -261,11 +261,11 @@ namespace MyProject
 
                 }
             }
-            bool control2 = true; //do-
+            bool control2 = true; //do-while kontrolü için
             do
             {
             
-                Console.Write("İade Etmek İstediğiniz Kitap: ");
+                Console.Write("İade Etmek İstediğiniz Kitap ISBN'i: ");
                 int key = Convert.ToInt32(Console.ReadLine());
                 foreach (var book in books)
                 {
@@ -273,12 +273,11 @@ namespace MyProject
                     {
                         book.Durum.Replace("Ödünç Alındı", "Mevcut");
                         Console.WriteLine("Kitap iade edildi. " + "Kitap Adı: " + book.Baslik);
-                        control2 = false;
+                        control2 = false; //döngüden çıkması için
                     }
 
                 }
             } while (control2);
-            return books;
 
         }
         public static List<Book> ListCheckedoutBooks(List<Book> books)
