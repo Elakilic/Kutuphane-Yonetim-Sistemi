@@ -36,10 +36,10 @@ namespace MyProject
 
             };
 
+            //yapılacak kütüphane işlemi seçimi
             bool islemControl = true;
             do //Bir işlem bittikten sonra kullanıcı farklı bir işlem yapabilsin diye döngü oluşturuldu.
             {
-                //yapılacak kütüphane işlemi seçimi
                 Console.Write("İşlem: ");
                 int islem = Convert.ToInt32(Console.ReadLine());
                 switch (islem)
@@ -166,7 +166,7 @@ namespace MyProject
             books.Add(new Book() {ISBN=Isbn, Baslik=baslik,Yazar=yazari, Durum= "Mevcut", Tür=türü}); //Bilgiler girildikten sonra ekleme yapar.
             Console.WriteLine("Kitap Eklendi.");
 
-            foreach(Book book in books)
+            foreach(Book book in books) //kitap eklendikten sonraki yeni kitap listesi
             {
                 Console.WriteLine($"Kitap ISBN'i: {book.ISBN} Kitap Adı: {book.Baslik}");
             }
@@ -174,23 +174,23 @@ namespace MyProject
         }
         public static void RemoveBook(List<Book> books)
         {
-            foreach (Book book in books)
+            foreach (Book book in books) //Sileceğimiz kitabı seçmek için kitaplar kullanıcıya gösterilir
             {
                 Console.WriteLine($"ISBN: {book.ISBN} Kitap Adı: {book.Baslik}");
             }
-            Console.Write("Silmek İstediğiniz kitabın ISBN'ini Seçiniz: ");
-            int isbn = Convert.ToInt32(Console.ReadLine());
-            var deleteBook = books.FirstOrDefault(x => x.ISBN == isbn);
-            books.Remove(deleteBook);
+            Console.Write("Silmek İstediğiniz kitabın ISBN'ini Seçiniz: "); 
+            int isbn = Convert.ToInt32(Console.ReadLine()); //silmek istediğimiz kitap seçilir
+            var deleteBook = books.FirstOrDefault(x => x.ISBN == isbn); 
+            books.Remove(deleteBook); //seçtiğimiz kitap silinir.
             Console.WriteLine("Seçtiğiniz Kitap Silindi.");
-            foreach(Book book in books)
+            foreach(Book book in books) //kitap silindikten sonraki yeni kitap listesi
             {
                 Console.WriteLine($"ISBN: {book.ISBN} Kitap Adı: {book.Baslik}");
             }
         }
         public static void AddPatron(List<Patron> musteriler)
         {
-            Console.Write("Müşteri Id'si: ");
+            Console.Write("Müşteri Id'si: ");                     //müşteri eklemek için kullanıcıdan bilgiler alınır
             int id = Convert.ToInt32(Console.ReadLine());
             Console.Write("Müşteri Adı: ");
             string isim=Console.ReadLine();
@@ -199,37 +199,37 @@ namespace MyProject
             Console.Write("Müşteri Telefon NUmarası: ");
             int tel = Convert.ToInt32(Console.ReadLine());
 
-            musteriler.Add(new Patron() {MusteriId=id, Ad=isim, Adres=adres, TelNo=tel});
+            musteriler.Add(new Patron() {MusteriId=id, Ad=isim, Adres=adres, TelNo=tel}); //Müşteri eklenir
             Console.WriteLine("Müşteri Eklendi.");
 
-            foreach (Patron patron in musteriler)
+            foreach (Patron patron in musteriler) //müşteri eklendikten sonra yeni müşteri listesini gösterir.
             {
                 Console.WriteLine($"Müşteri Id'si: {patron.MusteriId}  Müşteri Adı: {patron.Ad}");
             }
         }
         public static void RemovePatron(List<Patron> musteriler)
         {
-            foreach (Patron patron in musteriler)
+            foreach (Patron patron in musteriler) //Hangi müşteriyi sileceğini seçmesi için müşterileri listeler
             {
                 Console.WriteLine($"Müşteri Id'si: {patron.MusteriId}  Müşteri Adı: {patron.Ad}");
             }
-            Console.Write("Silmek istediğiniz müşteriyi Id'sine göre seçiniz: ");
+            Console.Write("Silmek istediğiniz müşteriyi Id'sine göre seçiniz: "); //silinecek müşteri seçilir
             int id = Convert.ToInt32(Console.ReadLine());
             var deletePatron = musteriler.FirstOrDefault(x => x.MusteriId == id);
-            musteriler.Remove(deletePatron);
+            musteriler.Remove(deletePatron); //müşteri silindi
             Console.WriteLine("Seçtiğiniz Müşteri Silindi.");
-            foreach (Patron patron in musteriler)
+            foreach (Patron patron in musteriler) //müşteri silindikten sonraki müşteri listesini gösterir
             {
                 Console.WriteLine($"Müşteri Id'si: {patron.MusteriId}  Müşteri Adı: {patron.Ad}");
             }
         }
         public static void CheckoutBook(List<Book> books , List<Patron> musteriler)
         {
-            foreach(Patron patron in musteriler)
+            foreach(Patron patron in musteriler) //Müşterileri Listeler
             {
                 Console.WriteLine($"Müşteri ID'si: {patron.MusteriId} Adı: {patron.Ad}");
             }
-            Console.Write("Müşteri Id'sine göre seçim yapınız: ");
+            Console.Write("Müşteri Id'sine göre seçim yapınız: "); //Hangi Müşteri kitabı ödünç alacak
             int id = Convert.ToInt32(Console.ReadLine());
             foreach (var patron in musteriler)
             {
@@ -238,8 +238,8 @@ namespace MyProject
                     Console.WriteLine("Müşteri Adı: " + patron.Ad);
                 }
             }
-            Console.WriteLine("----Mevcut Kitaplar Listesinden İstediğiniz Kİtabı Seçebilirsiniz.----");
-            foreach (var book in books)
+            Console.WriteLine("----Mevcut Kitaplar Listesinden İstediğiniz Kitabı Seçebilirsiniz.----");
+            foreach (var book in books) //Mevcut Kitapları kullanıcıya göster, kullanıcının bu kitaplardan seçim yapması için
             {
                 if (book.Durum == "Mevcut")
                 {
@@ -251,24 +251,23 @@ namespace MyProject
             do
             {
 
-                Console.Write("Seçeceğiniz Kitabın ISBN'i: ");
+                Console.Write("Seçeceğiniz Kitabın ISBN'i: "); //Kullanıcı kitabı seçer
                 int key2 = Convert.ToInt32(Console.ReadLine());
                 foreach (var book in books)
                 {
-                    if (key2 == book.ISBN)
+                    if (key2 == book.ISBN) //Seçilen kitabın ISBN'i doğru girildiyse kitap seçilir. Yanlış girildiyse tekrar seçmesini ister
                     {
                         book.Durum.Replace("Mevcut", "Ödünç Alındı");
-                        Console.WriteLine("İstediğiniz Kitap Ödünç Alındı. " + "Kitap Adı: " + book.Baslik);
-                        control = false; //döngüden çıkması için
+                        Console.WriteLine("Kitap Ödünç Alındı.");
+                        control=false; //döngüden çıkmak için
                     }
-
                 }
             } while (control);
-            
+
         }
         public static void ReturnBook(List<Book> books , List<Patron> musteriler)
         {
-            foreach(Patron patron in musteriler)
+            foreach(Patron patron in musteriler) //Hangi müşterinin kitabı geri getireceğini belirt
             {
                 Console.WriteLine($"Müşteri ID'si: {patron.MusteriId} Adı: {patron.Ad}");
             }
@@ -282,7 +281,7 @@ namespace MyProject
                 }
             }
             Console.WriteLine("----Ödünç Alınan Kitaplar Listesinden İade Etmek İstediğiniz Kitabı Seçebilirsiniz.----");
-            foreach (var book in books)
+            foreach (var book in books) //ödünç alınan kitapları listeleyip kullanıcının hangi kitabı getireceğini seçmesi için
             {
                 if (book.Durum == "Ödünç Alındı")
                 {
@@ -294,11 +293,11 @@ namespace MyProject
             do
             {
             
-                Console.Write("İade Etmek İstediğiniz Kitap ISBN'i: ");
+                Console.Write("İade Etmek İstediğiniz Kitap ISBN'i: "); //iade etmek istediği kitap hangisi?
                 int key = Convert.ToInt32(Console.ReadLine());
                 foreach (var book in books)
                 {
-                    if (key == book.ISBN)
+                    if (key == book.ISBN) //ISBN doğru girildiyse kitabı iade eder, doğru girilmezse tekrar girmesini ister.
                     {
                         book.Durum.Replace("Ödünç Alındı", "Mevcut");
                         Console.WriteLine("Kitap iade edildi. " + "Kitap Adı: " + book.Baslik);
