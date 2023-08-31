@@ -142,15 +142,14 @@ namespace MyProject
 
     public class Library 
     {
-        public static List<Book> GetBooks(List<Book> books) 
+        public static void GetBooks(List<Book> books) 
         {
             List<Book> tumKitaplar = new List<Book>();
             Console.WriteLine("----Tüm Kitaplar-----");
             foreach (var book in books)
             {
-                Console.WriteLine($" {book.Baslik}");
+                Console.WriteLine($"{book.ISBN} -> {book.Baslik}");
             }
-            return tumKitaplar;
         }
         public static void GetPatrons(List<Patron> patrons)
         {
