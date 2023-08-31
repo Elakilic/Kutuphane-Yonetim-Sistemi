@@ -69,12 +69,12 @@ namespace MyProject
                         break;
                     case 5:
                         Console.WriteLine("----Kitap Silme----");
-                        Library.RemoveBook();
+                        Library.RemoveBook(books);
                         islemControl = false;
                         break;
                     case 6:
                         Console.WriteLine("----Müşteri Ekleme----");
-                        Library.AddPatron();
+                        Library.AddPatron(musteriler);
                         islemControl = false;
                         break;
                     case 7:
@@ -191,16 +191,36 @@ namespace MyProject
             }
             
         }
-        public static void RemoveBook()
+        public static void RemoveBook(List<Book> books)
         {
-            List<Book> books = new List<Book>();
-            books.Remove(new Book() { ISBN=56774});
+            foreach(Book book in books)
+            {
+                Console.WriteLine($"ISBN: {book.ISBN} Kitap Adı: {book.Baslik}");
+            }
+            Console.Write("Silmek İstediğiniz kitabın ISBN'ini Seçiniz: ");
+            int isbn = Convert.ToInt32(Console.ReadLine());
 
+            books.Remove(new Book() { ISBN =isbn });
+            Console.WriteLine("Seçtiğiniz Kitap Silindi.");
         }
-        public static void AddPatron()
+        public static void AddPatron(List<Patron> musteriler)
         {
-            List<Patron> patrons = new List<Patron>();
-            patrons.Add(new Patron() { MusteriId = 7, Ad = "Aziz Çiçek", Adres = "Hatay", TelNo = 344689878 });
+            Console.Write("Müşteri Id'si: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Müşteri Adı: ");
+            string isim=Console.ReadLine();
+            Console.Write("Müşteri Adresi: ");
+            string adres=Console.ReadLine();
+            Console.Write("Müşteri Telefon NUmarası: ");
+            int tel = Convert.ToInt32(Console.ReadLine());
+
+            musteriler.Add(new Patron() {MusteriId=id, Ad=isim, Adres=adres, TelNo=tel});
+            Console.WriteLine("Müşteri Eklendi.");
+
+            foreach (Patron patron in musteriler)
+            {
+                Console.WriteLine($"Müşteri Id'si: {patron.MusteriId}  Müşteri Adı: {patron.Ad}");
+            }
         }
         public static void RemovePatron()
         {
