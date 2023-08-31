@@ -79,7 +79,7 @@ namespace MyProject
                         break;
                     case 7:
                         Console.WriteLine("----Müşteri Silme----");
-                        Library.RemovePatron();
+                        Library.RemovePatron(musteriler);
                         islemControl = false;
                         break;
                     case 8:
@@ -193,15 +193,8 @@ namespace MyProject
         }
         public static void RemoveBook(List<Book> books)
         {
-            foreach(Book book in books)
-            {
-                Console.WriteLine($"ISBN: {book.ISBN} Kitap Adı: {book.Baslik}");
-            }
-            Console.Write("Silmek İstediğiniz kitabın ISBN'ini Seçiniz: ");
-            int isbn = Convert.ToInt32(Console.ReadLine());
-
-            books.Remove(new Book() { ISBN =isbn });
-            Console.WriteLine("Seçtiğiniz Kitap Silindi.");
+            books.Remove(new Book() { ISBN = 61558, Baslik = "Martin Eden", Yazar = "Jack London", Durum = "Mevcut", Tür = "Roman" });
+            Console.WriteLine("Kitap Silindi.");
         }
         public static void AddPatron(List<Patron> musteriler)
         {
@@ -222,12 +215,10 @@ namespace MyProject
                 Console.WriteLine($"Müşteri Id'si: {patron.MusteriId}  Müşteri Adı: {patron.Ad}");
             }
         }
-        public static void RemovePatron()
+        public static void RemovePatron(List<Patron> musteriler)
         {
-            List<Patron> patrons=new List<Patron>();
-            patrons.Remove(new Patron() { MusteriId = 5 });
-
-
+            musteriler.Remove(new Patron() { MusteriId = 5, Ad = "Ali Kaya", Adres = "İzmir", TelNo = 741355673 });
+            Console.WriteLine("Müşteri Silindi.");
         }
         public static void CheckoutBook(List<Book> books )
         {
