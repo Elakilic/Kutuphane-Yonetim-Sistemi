@@ -36,71 +36,65 @@ namespace MyProject
 
             };
 
-            //yapılacak kütüphane işlemi seçimi
-            Console.Write("İşlem: ");
-            int islem =Convert.ToInt32(Console.ReadLine());
-
             bool islemControl = true;
-            do
+            do //Bir işlem bittikten sonra kullanıcı farklı bir işlem yapabilsin diye döngü oluşturuldu.
             {
+                //yapılacak kütüphane işlemi seçimi
+                Console.Write("İşlem: ");
+                int islem = Convert.ToInt32(Console.ReadLine());
                 switch (islem)
                 {
 
                     case 1:
 
                         Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
-                        Patron.OduncAlinanlar(books);                                                   
-                        islemControl = false;
+                        Patron.OduncAlinanlar(books);
                         break;
                     case 2:
                         Console.WriteLine("----Tüm Kitaplar---- ");
                         Library.GetBooks(books);
-                        islemControl = false;
                         break;
                     case 3:
                         Console.WriteLine("----Tüm Müşteriler----");
                         Library.GetPatrons(musteriler);
-                        islemControl = false;
                         break;
                     case 4:
                         Console.WriteLine("----Kitap Ekleme----");
                         Library.AddBook(books);
-                        islemControl = false;
                         break;
                     case 5:
                         Console.WriteLine("----Kitap Silme----");
                         Library.RemoveBook(books);
-                        islemControl = false;
                         break;
                     case 6:
                         Console.WriteLine("----Müşteri Ekleme----");
                         Library.AddPatron(musteriler);
-                        islemControl = false;
                         break;
                     case 7:
                         Console.WriteLine("----Müşteri Silme----");
                         Library.RemovePatron(musteriler);
-                        islemControl = false;
                         break;
                     case 8:
                         Console.WriteLine("----Kütüphaneden Kitap Ödünç Alma----");
                         Library.CheckoutBook(books);
-                        islemControl = false;
                         break;
                     case 9:
                         Console.WriteLine("----Kütüphaneye Kitabı Geri Getirme----");
                         Library.ReturnBook(books);
-                        islemControl = false;
                         break;
                     case 10:
                         Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
                         Library.ListCheckedoutBooks(books);
-                        islemControl = false;
                         break;
                     default:
                         Console.WriteLine("Hatalı Giriş Yaptınız.");
-                        islemControl = false;
                         break;
+                }
+                Console.Write("Farklı bir işlem yapmak ister misiniz? E:Evet H:Hayır ");
+                char devam = Convert.ToChar(Console.ReadLine());
+                if (devam == 'H')
+                {
+                    islemControl = false;
                 }
             } while (islemControl);
         }
@@ -278,9 +272,17 @@ namespace MyProject
 
                 }
             } while (control2);
+            foreach (var book in books)
+            {
+                if (book.Durum == "Ödünç Alındı")
+                {
+                    Console.WriteLine("Isbn: " + book.ISBN + ", Başlık: " + book.Baslik);
+
+                }
+            }
 
         }
-        public static List<Book> ListCheckedoutBooks(List<Book> books)
+        public static void ListCheckedoutBooks(List<Book> books)
         {
             Console.WriteLine("----Ödünç Alınan Kitaplar----");
             foreach (var book in books)
@@ -290,7 +292,6 @@ namespace MyProject
                     Console.WriteLine(book.Baslik);
                 }
             }
-            return books;
         }
 
     }
