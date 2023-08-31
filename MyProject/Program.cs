@@ -76,11 +76,11 @@ namespace MyProject
                         break;
                     case 8:
                         Console.WriteLine("----Kütüphaneden Kitap Ödünç Alma----");
-                        Library.CheckoutBook(books);
+                        Library.CheckoutBook(books, musteriler);
                         break;
                     case 9:
                         Console.WriteLine("----Kütüphaneye Kitabı Geri Getirme----");
-                        Library.ReturnBook(books);
+                        Library.ReturnBook(books, musteriler);
                         break;
                     case 10:
                         Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
@@ -187,8 +187,15 @@ namespace MyProject
         }
         public static void RemoveBook(List<Book> books)
         {
-            books.Remove(new Book() { ISBN = 61558, Baslik = "Martin Eden", Yazar = "Jack London", Durum = "Mevcut", Tür = "Roman" });
-            Console.WriteLine("Kitap Silindi.");
+            foreach (Book book in books)
+            {
+                Console.WriteLine($"ISBN: {book.ISBN} Kitap Adı: {book.Baslik}");
+            }
+            Console.Write("Silmek İstediğiniz kitabın ISBN'ini Seçiniz: ");
+            int isbn = Convert.ToInt32(Console.ReadLine());
+
+            books.Remove(new Book() { ISBN = isbn });
+            Console.WriteLine("Seçtiğiniz Kitap Silindi.");
         }
         public static void AddPatron(List<Patron> musteriler)
         {
@@ -211,11 +218,25 @@ namespace MyProject
         }
         public static void RemovePatron(List<Patron> musteriler)
         {
-            musteriler.Remove(new Patron() { MusteriId = 5, Ad = "Ali Kaya", Adres = "İzmir", TelNo = 741355673 });
-            Console.WriteLine("Müşteri Silindi.");
+            foreach (Patron patron in musteriler)
+            {
+                Console.WriteLine($"Müşteri Id'si: {patron.MusteriId}  Müşteri Adı: {patron.Ad}");
+            }
+            Console.Write("Silmek istediğiniz müşteriyi Id'sine göre seçiniz: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Seçtiğiniz Müşteri Silindi.");
         }
-        public static void CheckoutBook(List<Book> books )
+        public static void CheckoutBook(List<Book> books , List<Patron> musteriler)
         {
+            Console.Write("Müşteri Id'sine göre seçim yapınız: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            foreach (var patron in musteriler)
+            {
+                if (id == patron.MusteriId)
+                {
+                    Console.WriteLine("Müşteri Adı: " + patron.Ad);
+                }
+            }
             Console.WriteLine("----Mevcut Kitaplar Listesinden İstediğiniz Kİtabı Seçebilirsiniz.----");
             foreach (var book in books)
             {
@@ -244,8 +265,21 @@ namespace MyProject
             } while (control);
             
         }
-        public static void ReturnBook(List<Book> books)
+        public static void ReturnBook(List<Book> books , List<Patron> musteriler)
         {
+            foreach(Patron patron in musteriler)
+            {
+                Console.WriteLine($"Müşteri ID'si: {patron.MusteriId} Adı: {patron.Ad}");
+            }
+            Console.Write("Müşteri Id'sine göre seçim yapınız: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            foreach (var patron in musteriler)
+            {
+                if (id == patron.MusteriId)
+                {
+                    Console.WriteLine("Müşteri Adı: " + patron.Ad);
+                }
+            }
             Console.WriteLine("----Ödünç Alınan Kitaplar Listesinden İade Etmek İstediğiniz Kitabı Seçebilirsiniz.----");
             foreach (var book in books)
             {
@@ -272,14 +306,6 @@ namespace MyProject
 
                 }
             } while (control2);
-            foreach (var book in books)
-            {
-                if (book.Durum == "Ödünç Alındı")
-                {
-                    Console.WriteLine("Isbn: " + book.ISBN + ", Başlık: " + book.Baslik);
-
-                }
-            }
 
         }
         public static void ListCheckedoutBooks(List<Book> books)
