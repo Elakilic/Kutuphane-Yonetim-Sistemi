@@ -85,13 +85,17 @@ namespace MyProject
                         Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
                         Library.ListCheckedoutBooks(books);
                         break;
+                    case 11:
+                        Console.WriteLine("----Kitap ve Müşteri Arama----");
+                        Library.Arama(books, musteriler);
+                        break;
                     default:
                         Console.WriteLine("Hatalı Giriş Yaptınız.");
                         break;
                 }
                 Console.Write("Farklı bir işlem yapmak ister misiniz? E:Evet H:Hayır ");
                 char devam = Convert.ToChar(Console.ReadLine());
-                if (devam == 'H')
+                if (devam == 'H' || devam == 'h')
                 {
                     islemControl = false; //farklı bir işlem yapmak istemiyorsa döngüden çıksın 
                 }
@@ -338,6 +342,47 @@ namespace MyProject
                     Console.WriteLine(book.Baslik);
                 }
             }
+        }
+        public static void Arama(List<Book> books, List<Patron> musteriler)
+        {
+            foreach(Book book in books) //Kitap Başlığına göre kitap arama
+            {
+                Console.WriteLine("Başlık: " +book.Baslik);
+            }
+            bool control = true;
+            do //kitap adı yanlış girilirse tekrar girebilmek için döngü oluşturuldu.
+            {
+                Console.Write("Arayacağınız Kitabın Başlığı: ");
+                string baslik = Console.ReadLine();
+                foreach (var book in books)
+                {
+                    if (book.Baslik == baslik)
+                    {
+                        Console.WriteLine($"Kitabın Başlığı: {book.Baslik} , ISBN'i: {book.ISBN} , Durumu: {book.Durum} , Yazarı: {book.Yazar} ," +
+                            $"Türü: {book.Tür} ");
+                        control = false; //döngüden çıkması için
+                    }
+                }
+            }while (control);
+            foreach(var musteri in musteriler) //müşteri idsine göre arama
+            {
+                Console.WriteLine("Müşteri ID: " + musteri.MusteriId);
+            }
+            bool control2 = true;
+            do //müşteri idsi yanlış girilirse tekrar girebilmek için döngü oluşturuldu.
+            {
+                Console.Write("Arayacağınız Müşterinin ID'si: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                foreach (var musteri in musteriler)
+                {
+                    if (musteri.MusteriId == id)
+                    {
+                        Console.WriteLine($"Müşterinin ID'si: {musteri.MusteriId} , Adı: {musteri.Ad} , Adresi: {musteri.Adres} , Telefonu: {musteri.TelNo}");
+                        control2 = false; //döngüden çıkması için
+                    }
+                }
+            }while(control2);
+
         }
 
     }
