@@ -1,0 +1,43 @@
+------Kullanıcı Kılavuzu------
+***Kod çalıştırıldığında işlem bilgilerini gösterir.
+
+***Her method farklı bir işlemin içerisinde mevcuttur.
+
+***Çalıştırılmak istenen metota ait işlem numarası console'a girilir.
+
+***Girilen işlem numarası hangi metota ait ise o metot çalıştırılır.
+
+***Kitap ve Müşteri ekleme metotlarında ekleyeceğimiz kitap veya
+müşteriye ait tüm bilgiler kullanıcı tarafından girilir. Bilgiler girildikten sonra eklediğimiz
+kitap veya müşterinin bilgileri ekranda görünür ve listeye eklenir.
+
+***Kitap silme işlemi için tüm kitaplar listelenir ve silinmesi istenen kitabın ISBN bilgisi girilir.
+Ve seçtiğimiz ISBN bilgisine sahip kitap silinir.
+ISBN bilgisi yanlış girilirse kullanıcının ISBN'i tekrar girmesi istenir.
+
+***Müşteri silme işlemi için tüm müşteriler listelenir ve silinmesi istenen müşterinin ID'si girilir.
+Ve seçtiğimiz ID bilgisine sahip müşteri silinir.
+ID bilgisi yanlış girilirse kullanıcının ID'yi tekrar girmesi istenir.
+
+***Kitap ödünç alma işlemi için kullanıcıya mevcut kitaplar listelenir ve bu kitaplardan ödünç almak
+istediği kitabın ISBN'inin girilmesi istenir.
+Girilen ISBN bilgisine sahip kitap ödünç alınmış olur ve durum bilgisi güncellenir.
+Yanlış ISBN bilgisi girilirse kullanıcının ISBN'i tekrar girmesi istenir. 
+
+***Kitap geri getirme işlemi için kullanıcıya ödünç alınan kitaplar listelenir ve bu kitaplardan geri getirmek
+istediği kitabın ISBN'inin girilmesi istenir.
+Girilen ISBN bilgisine sahip kitap geri getirilmiş olur ve durum bilgisi güncellenir.
+Yanlış ISBN bilgisi girilirse kullanıcının ISBN'i tekrar girmesi istenir.
+
+***Arama işlemi için kullanıcıya başta kitap mı müşteri mi aramak istediği sorulur.
+Kullanıcının yaptığı seçime göre arama işlemi yapılır.
+Kitap araması Başlık bilgisine göre, Müşteri araması ID bilgisine göre yapılır. 
+
+***Yapılan işlem bittikten sonra, Çıkmak ister misiniz? diye sorulur.
+Kullanıcı çıkmak isterse ç'ye basılır.
+Kullanıcı yeni bir işlem yapmak isterse 'ç' veya 'Ç' haricinde farklı bir char değere basar.
+Ve çalıştırılmak istenen metota ait işlem numarası girilir.
+
+
+
+ 
