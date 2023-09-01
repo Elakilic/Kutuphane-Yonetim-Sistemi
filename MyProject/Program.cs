@@ -257,12 +257,22 @@ namespace MyProject
                 {
                     if (key2 == book.ISBN) //Seçilen kitabın ISBN'i doğru girildiyse kitap seçilir. Yanlış girildiyse tekrar seçmesini ister
                     {
-                        book.Durum.Replace("Mevcut", "Ödünç Alındı");
-                        Console.WriteLine("Kitap Ödünç Alındı.");
+                        if (book.Durum.StartsWith("Mevcut"))
+                        {
+                            book.Durum = book.Durum.Replace("Mevcut", "Ödünç Alındı"); //kitap durumunu güncellemek için
+                        }
                         control=false; //döngüden çıkmak için
                     }
                 }
             } while (control);
+            foreach (var book in books) //Kitap ödünç verildikten sonraki güncel Mevcut kitaplar listesi
+            {
+                if (book.Durum == "Mevcut")
+                {
+                    Console.WriteLine("Isbn: " + book.ISBN + ", Başlık: " + book.Baslik);
+
+                }
+            }
 
         }
         public static void ReturnBook(List<Book> books , List<Patron> musteriler)
@@ -299,13 +309,23 @@ namespace MyProject
                 {
                     if (key == book.ISBN) //ISBN doğru girildiyse kitabı iade eder, doğru girilmezse tekrar girmesini ister.
                     {
-                        book.Durum.Replace("Ödünç Alındı", "Mevcut");
-                        Console.WriteLine("Kitap iade edildi. " + "Kitap Adı: " + book.Baslik);
+                        if (book.Durum.StartsWith("Ödünç Alındı"))
+                        {
+                            book.Durum = book.Durum.Replace("Ödünç Alındı", "Mevcut"); //Kitap durumunu güncellemek için
+                        }
                         control2 = false; //döngüden çıkması için
                     }
 
                 }
             } while (control2);
+            foreach (var book in books) //Müşteri kitabı geri getirdikten sonraki güncel Ödünç Alınan kitaplar listesi
+            {
+                if (book.Durum == "Ödünç Alındı")
+                {
+                    Console.WriteLine("Isbn: " + book.ISBN + ", Başlık: " + book.Baslik);
+
+                }
+            }
 
         }
         public static void ListCheckedoutBooks(List<Book> books)
