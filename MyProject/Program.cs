@@ -40,18 +40,18 @@ namespace MyProject
             bool islemControl = true;
             do //Bir işlem bittikten sonra kullanıcı farklı bir işlem yapabilsin diye döngü oluşturuldu.
             {
-                //Hangi sayı ile hangi işlemi yapacağımızı gösterir.
-                Console.WriteLine("İşlem 1- Ödünç Alınan Kitaplar Listesi");
-                Console.WriteLine("İşlem 2- Tüm Kitaplar");
-                Console.WriteLine("İşlem 3- Tüm Müşteriler");
-                Console.WriteLine("İşlem 4- Kitap Ekleme");
-                Console.WriteLine("İşlem 5- Kitap Silme");
-                Console.WriteLine("İşlem 6- Müşteri Ekleme");
-                Console.WriteLine("İşlem 7- Müşteri Silme");
-                Console.WriteLine("İşlem 8- Kütüphaneden Kitap Ödünç Alma");
-                Console.WriteLine("İşlem 9- Kütüphaneye Kitabı Geri Getirme");
-                Console.WriteLine("İşlem 10- Ödünç Alınan Kitaplar Listesi");
-                Console.WriteLine("İşlem 11- Arama");
+                //Hangi sayı ile hangi işlemi yapacağımızı gösterir
+                Console.WriteLine("İşlem 1- Tüm Kitaplar");
+                Console.WriteLine("İşlem 2- Tüm Müşteriler");
+                Console.WriteLine("İşlem 3- Kitap Ekleme");
+                Console.WriteLine("İşlem 4- Kitap Silme");
+                Console.WriteLine("İşlem 5- Müşteri Ekleme");
+                Console.WriteLine("İşlem 6- Müşteri Silme");
+                Console.WriteLine("İşlem 7- Kütüphaneden Kitap Ödünç Alma");
+                Console.WriteLine("İşlem 8- Kütüphaneye Kitabı Geri Getirme");
+                Console.WriteLine("İşlem 9- Ödünç Alınan Kitaplar Listesi");
+                Console.WriteLine("İşlem 10- Kitap Arama");
+                Console.WriteLine("İşlem 11- Müşteri Arama");
 
                 Console.Write("İşlem: "); //yapmak istediğimiz işlem numarası girilir.
                 int islem = Convert.ToInt32(Console.ReadLine());
@@ -59,48 +59,48 @@ namespace MyProject
                 {
                     //her case farklı bir methodu çalıştırır.
                     case 1:
-                        Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
-                        Patron.OduncAlinanlar(books);
+                        Console.WriteLine("----Tüm Kitaplar----");
+                        Book.GetBooks(books);
                         break;
                     case 2:
-                        Console.WriteLine("----Tüm Kitaplar---- ");
-                        Library.GetBooks(books);
+                        Console.WriteLine("----Tüm Müşteriler---- ");
+                        Patron.GetPatrons(musteriler);
                         break;
                     case 3:
-                        Console.WriteLine("----Tüm Müşteriler----");
-                        Library.GetPatrons(musteriler);
+                        Console.WriteLine("----Kitap Ekleme----");
+                        Book.AddBook(books);
                         break;
                     case 4:
-                        Console.WriteLine("----Kitap Ekleme----");
-                        Library.AddBook(books);
+                        Console.WriteLine("----Kitap Silme----");
+                        Book.RemoveBook(books);
                         break;
                     case 5:
-                        Console.WriteLine("----Kitap Silme----");
-                        Library.RemoveBook(books);
+                        Console.WriteLine("----Müşteri Ekleme----");
+                        Patron.AddPatron(musteriler);
                         break;
                     case 6:
-                        Console.WriteLine("----Müşteri Ekleme----");
-                        Library.AddPatron(musteriler);
+                        Console.WriteLine("----Müşteri Silme----");
+                        Patron.RemovePatron(musteriler);
                         break;
                     case 7:
-                        Console.WriteLine("----Müşteri Silme----");
-                        Library.RemovePatron(musteriler);
+                        Console.WriteLine("----Kütüphaneden Kitap Ödünç Alma----");
+                        Book.CheckoutBook(books);
                         break;
                     case 8:
-                        Console.WriteLine("----Kütüphaneden Kitap Ödünç Alma----");
-                        Library.CheckoutBook(books, musteriler);
+                        Console.WriteLine("----Kütüphaneye Kitabı Geri Getirme----");
+                        Book.ReturnBook(books);
                         break;
                     case 9:
-                        Console.WriteLine("----Kütüphaneye Kitabı Geri Getirme----");
-                        Library.ReturnBook(books, musteriler);
+                        Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
+                        Book.ListCheckedoutBooks(books);
                         break;
                     case 10:
-                        Console.WriteLine("----Ödünç Alınan Kitaplar Listesi----");
-                        Library.ListCheckedoutBooks(books);
+                        Console.WriteLine("----Kitap Arama----");
+                        Library.KitapArama(books);
                         break;
                     case 11:
-                        Console.WriteLine("----Kitap ve Müşteri Arama----");
-                        Library.Arama(books, musteriler);
+                        Console.WriteLine("----Müşteri Arama----");
+                        Library.MusteriArama(musteriler);
                         break;
                     default:
                         Console.WriteLine("Hatalı Giriş Yaptınız.");
@@ -114,6 +114,5 @@ namespace MyProject
                 }
             } while (islemControl);
         }
-
     }
 }
