@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -9,6 +10,7 @@ namespace MyProject
     {
         public static void Main(string[] args)
         {
+            using Context mycontext = new Context();
             //Kitapların listesi
             List<Book> books = new List<Book>
             {
@@ -22,7 +24,6 @@ namespace MyProject
                 new Book{ISBN=61558,Baslik="Martin Eden",Yazar="Jack London", Durum="Mevcut", Tür="Roman"},
                 new Book{ISBN=78454,Baslik="Yabancı",Yazar="Albert Camus", Durum="Mevcut", Tür="Roman"},
                 new Book{ISBN=34567,Baslik="Kürk Mantolu Madonna",Yazar="Sabahattin Ali", Durum="Ödünç Alındı", Tür="Roman"},
-
             };
             //Müşterilerin listesi
             List<Patron> musteriler = new List<Patron>
@@ -33,7 +34,6 @@ namespace MyProject
                 new Patron{MusteriId=4,Ad="Aram Kılıç",Adres="Diyarbakır",TelNo=975457274},
                 new Patron{MusteriId=5,Ad="Ali Kaya",Adres="İzmir",TelNo=741355673},
                 new Patron{MusteriId=6,Ad="Ahmet Gündoğdu",Adres="İstanbul",TelNo=1454767575},
-
             };
 
             //yapılacak kütüphane işlemi seçimi
@@ -60,7 +60,7 @@ namespace MyProject
                     //her case farklı bir methodu çalıştırır.
                     case 1:
                         Console.WriteLine("----Tüm Kitaplar----");
-                        Book.GetBooks(books);
+                        Book.GetBooks(mycontext.books);
                         break;
                     case 2:
                         Console.WriteLine("----Tüm Müşteriler---- ");
@@ -72,7 +72,7 @@ namespace MyProject
                         break;
                     case 4:
                         Console.WriteLine("----Kitap Silme----");
-                        Book.RemoveBook(books);
+                        Book.RemoveBook(mycontext.books);
                         break;
                     case 5:
                         Console.WriteLine("----Müşteri Ekleme----");
@@ -113,6 +113,7 @@ namespace MyProject
                     islemControl = false; //farklı bir işlem yapmak istemiyorsa döngüden çıksın 
                 }
             } while (islemControl);
+            mycontext.SaveChanges();
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,16 +10,17 @@ namespace MyProject
 {
     public class Book
     {
+        [Key]
         public int ISBN { get; set; }           //Kitap özellikleri tanımlamak için 
         public string Baslik { get; set; }
         public string Yazar { get; set; }
         public string Tür { get; set; }
         public string Durum { get; set; }
 
-        public static void GetBooks(List<Book> books) //tüm kitapları listelemek için oluşturulan method
+        public static void GetBooks(DbSet<Book> books) //tüm kitapları listelemek için oluşturulan method
         {
             Console.WriteLine("-------------------------------------------");
-            foreach (var book in books)
+            foreach (Book book in books)
             {
                 Console.WriteLine($"{book.ISBN} -> {book.Baslik}");
             }
@@ -43,7 +46,7 @@ namespace MyProject
             }
             Console.WriteLine("-------------------------------------------");
         }
-        public static void RemoveBook(List<Book> books)
+        public static void RemoveBook(DbSet<Book> books)
         {
             bool control = true;
             do //Kitap bilgisi yanlış girilirse tekrar girmek için döngü oluşturuldu.
