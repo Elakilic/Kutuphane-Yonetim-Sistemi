@@ -8,55 +8,69 @@ namespace MyProject
 {
     public class Library
     {       
-        public static void KitapArama(List<Book> books)
+        public static void KitapArama()
         {
-            Console.WriteLine("-------------------------------------------");
-            foreach (Book book in books) //Kitap Başlığına göre kitap arama
+            using (var context = new Context()) // DbContext'i kullanarak bağlanın
             {
-                Console.WriteLine("Başlık: " + book.Baslik);
-            }
-            Console.WriteLine("-------------------------------------------");
-            bool control = true;
-            do //kitap adı yanlış girilirse tekrar girebilmek için döngü oluşturuldu.
-            {
-                Console.Write("Arayacağınız Kitabın Başlığı: ");
-                string baslik = Console.ReadLine();
+                Console.WriteLine("-------------------------------------------");
+                var books = context.books.ToList(); // Tüm kitapları al
                 foreach (var book in books)
                 {
-                    if (book.Baslik == baslik)
+                    Console.WriteLine("Başlık: " + book.Baslik);
+                }
+                Console.WriteLine("-------------------------------------------");
+
+                bool control = true;
+                do
+                {
+                    Console.Write("Arayacağınız Kitabın Başlığı: ");
+                    string baslik = Console.ReadLine();
+                    var foundBook = books.FirstOrDefault(book => book.Baslik == baslik);
+
+                    if (foundBook != null)
                     {
                         Console.WriteLine("Aradığınız Kitap Bulundu. ");
-                        Console.WriteLine($"Kitabın Başlığı: {book.Baslik} , ISBN'i: {book.ISBN} , Durumu: {book.Durum} , Yazarı: {book.Yazar} ," +
-                            $"Türü: {book.Tür} ");
-                        control = false; //döngüden çıkması için
+                        Console.WriteLine($"Kitabın Başlığı: {foundBook.Baslik}, ISBN'i: {foundBook.ISBN}, Durumu: {foundBook.Durum}, Yazarı: {foundBook.Yazar}, Türü: {foundBook.Tür}");
+                        control = false;
                     }
-                }
-            } while (control);            
-        }
-        public static void MusteriArama(List<Patron> musteriler)
-        {
-            Console.WriteLine("-------------------------------------------");
-            foreach (var musteri in musteriler) //müşteri idsine göre arama
-            {
-                Console.WriteLine("Müşteri ID: " + musteri.MusteriId);
+                    else
+                    {
+                        Console.WriteLine("Aradığınız kitap bulunamadı. Lütfen geçerli bir kitap başlığı girin.");
+                    }
+                } while (control);
             }
-            Console.WriteLine("-------------------------------------------");
-            bool control2 = true;
-            do //müşteri idsi yanlış girilirse tekrar girebilmek için döngü oluşturuldu.
+        }
+        public static void MusteriArama()
+        {
+            using (var context = new Context()) // DbContext'i kullanarak bağlanın
             {
-                Console.Write("Arayacağınız Müşterinin ID'si: ");
-                int id = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("-------------------------------------------");
+                var musteriler = context.musteriler.ToList(); // Tüm müşterileri al
                 foreach (var musteri in musteriler)
                 {
-                    if (musteri.MusteriId == id)
+                    Console.WriteLine("Müşteri ID: " + musteri.MusteriId);
+                }
+                Console.WriteLine("-------------------------------------------");
+
+                bool control2 = true;
+                do
+                {
+                    Console.Write("Arayacağınız Müşterinin ID'si: ");
+                    int id = Convert.ToInt32(Console.ReadLine());
+                    var foundMusteri = musteriler.FirstOrDefault(musteri => musteri.MusteriId == id);
+
+                    if (foundMusteri != null)
                     {
                         Console.WriteLine("Aradığınız Müşteri Bulundu.");
-                        Console.WriteLine($"Müşterinin ID'si: {musteri.MusteriId} , Adı: {musteri.Ad} , Adresi: {musteri.Adres} , Telefonu: {musteri.TelNo}");
-                        control2 = false; //döngüden çıkması için
+                        Console.WriteLine($"Müşterinin ID'si: {foundMusteri.MusteriId}, Adı: {foundMusteri.Ad}, Adresi: {foundMusteri.Adres}, Telefonu: {foundMusteri.TelNo}");
+                        control2 = false;
                     }
-
-                }
-            } while (control2);
+                    else
+                    {
+                        Console.WriteLine("Aradığınız müşteri bulunamadı. Lütfen geçerli bir Müşteri ID girin.");
+                    }
+                } while (control2);
+            }
         }
     }
 }
